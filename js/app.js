@@ -1,6 +1,6 @@
 let add_cart = document.getElementsByClassName("add-to-cart");
-var cart = document.querySelector('#cart tbody');
-var notif = document.querySelector('body');
+let cart = document.querySelector('#cart tbody');
+let notif = document.querySelector('body');
 console.log(add_cart);
 
 //recuperation des données pour le local storage et verifier si la valeur des données n'est pas nul
@@ -19,7 +19,8 @@ for (let i = 0; i < add_cart.length; i++) {
         let data = element.getAttribute('data-id');
         console.log(data)
         cartStockage.push(data)
-        localStorage.setItem('cartStockage', JSON.stringify(cartStockage))
+        localStorage.setItem('cartStockage', JSON.stringify(cartStockage));
+        document.location.reload();
     })
 }
 
@@ -40,6 +41,10 @@ function addToCart(id) {
 
 //vider le panier
 let btn_clear = document.querySelector("#empty-cart");
-btn_clear.addEventListener('click', () => localStorage.clear())
+btn_clear.addEventListener('click', () => {
+    localStorage.clear()
+    document.location.reload();
+})
+
 
 
