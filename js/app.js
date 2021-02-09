@@ -1,13 +1,13 @@
 let add_cart = document.getElementsByClassName("add-to-cart");
-var cart = document.querySelector('#cart tbody')
-var notif = document.querySelector('body')
-console.log(add_cart)
+var cart = document.querySelector('#cart tbody');
+var notif = document.querySelector('body');
+console.log(add_cart);
 
 //recuperation des données pour le local storage et verifier si la valeur des données n'est pas nul
 if (localStorage.getItem('cartStockage') == null) {
     localStorage.setItem('cartStockage', '[]')
 }
-var cartStockage = JSON.parse(localStorage.getItem('cartStockage'))
+var cartStockage = JSON.parse(localStorage.getItem('cartStockage'));
 for (let i = 0; i < cartStockage.length; i++) {
     addToCart(cartStockage[i])
 }
@@ -25,7 +25,7 @@ for (let i = 0; i < add_cart.length; i++) {
 
 //fonction pour mettre les articles dans le panier
 function addToCart(id) {
-    let course = COURSES[id]
+    let course = COURSES[id];
     console.log(`Add ${course.title} to cart`);
     cart.insertAdjacentHTML('afterbegin', `
         <tr>
@@ -37,3 +37,9 @@ function addToCart(id) {
         </tr>
     `)
 }
+
+//vider le panier
+let btn_clear = document.querySelector("#empty-cart");
+btn_clear.addEventListener('click', () => localStorage.clear())
+
+
