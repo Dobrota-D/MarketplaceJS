@@ -33,7 +33,7 @@ function addToCart(id) {
             <td>${course.title}</td>
             <td>${course.price}€</td>
             <td>1</td>
-            <td><img src="img/cross.png" class="remove-course" data-id="${id}" style="width:25px;height:auto;cursor:pointer"></td>
+            <td><img src="img/cross.jpg" class="remove-course" data-id="${id}" style="width:25px;height:auto;cursor:pointer"></td>
         </tr>
     `)
 }
