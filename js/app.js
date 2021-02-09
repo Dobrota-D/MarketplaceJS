@@ -1,7 +1,37 @@
 let add_cart = document.getElementsByClassName("add-to-cart");
 let cart = document.querySelector('#cart tbody');
 let notif = document.querySelector('body');
+const container = document.querySelector('.courses__container');
 console.log(add_cart);
+
+// recupère le nombre de leçons
+let coursesLength = Object.keys(COURSES).length;
+// Affichage des cards 
+for (let i = coursesLength; i > 0; i--){
+    let course = COURSES[i];
+    container.insertAdjacentHTML('afterbegin',`
+    <div class="course__item">
+        <figure class="course_img">
+        <img src="img/courses/${course.img}">
+        </figure>
+        <div class="info__card">
+        <h4>${course.title}</h4>
+        <figure class="mark m_${course.mark}">
+            <img src="img/rates.png">
+        </figure>
+        <p>
+            <span class="price">${course.initial_price} €</span>
+            <span class="discount">${course.price} €</span>
+        </p>
+        <p>
+            Disponible: <span class="stock">${course.stock}</span>
+        </p>
+        <a href="#" class="add-to-cart" data-id="1"><i class="fa fa-cart-plus"></i>Ajouter au panier</a>
+        </div>
+    </div>
+    `);
+}
+
 
 //recuperation des données pour le local storage et verifier si la valeur des données n'est pas nul
 if (localStorage.getItem('cartStockage') == null) {
