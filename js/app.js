@@ -3,6 +3,7 @@ let cart = document.querySelector('#cart tbody');
 let notif = document.querySelector('body');
 const container = document.querySelector('.courses__container');
 console.log(add_cart);
+let is_cart_empty = true;
 
 // recupère le nombre de leçons
 let coursesLength = Object.keys(COURSES).length;
@@ -67,6 +68,7 @@ function addToCart(id) {
             <td><img src="img/cross.jpg" class="remove-course" data-id="${id}" style="width:25px;height:auto;cursor:pointer"></td>
         </tr>
     `)
+    is_cart_empty = false;
 }
 
 //vider le panier
@@ -74,6 +76,21 @@ let btn_clear = document.querySelector("#empty-cart");
 btn_clear.addEventListener('click', () => {
     localStorage.clear()
     document.location.reload();
+    is_cart_empty = true;
 })
 
 //retirer un article du panier 
+
+
+//verifie si le panier est vide pour pouvoir valider la commande 
+let check_if_cart_empty = document.getElementById("valid-cart");
+
+function alert_cart_empty(event){
+    event.preventDefault();
+    alert('Votre panier est vide')
+}
+
+if (is_cart_empty == true){
+    check_if_cart_empty.addEventListener('click', alert_cart_empty)
+}
+
