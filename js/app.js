@@ -26,7 +26,7 @@ for (let i = coursesLength; i > 0; i--){
         <p>
             Disponible: <span class="stock">${course.stock}</span>
         </p>
-        <a href="#" class="add-to-cart" data-id="1"><i class="fa fa-cart-plus"></i>Ajouter au panier</a>
+        <a href="#" class="add-to-cart" data-id=${course.id}><i class="fa fa-cart-plus"></i>Ajouter au panier</a>
         </div>
     </div>
     `);
@@ -37,7 +37,7 @@ for (let i = coursesLength; i > 0; i--){
 if (localStorage.getItem('cartStockage') == null) {
     localStorage.setItem('cartStockage', '[]')
 }
-var cartStockage = JSON.parse(localStorage.getItem('cartStockage'));
+let cartStockage = JSON.parse(localStorage.getItem('cartStockage'));
 for (let i = 0; i < cartStockage.length; i++) {
     addToCart(cartStockage[i])
 }
@@ -76,5 +76,4 @@ btn_clear.addEventListener('click', () => {
     document.location.reload();
 })
 
-
-
+//retirer un article du panier 
