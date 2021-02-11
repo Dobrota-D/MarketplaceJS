@@ -34,7 +34,6 @@ for (let i = coursesLength; i > 0; i--){
     `);
 }
 
-
 //recuperation des données pour le local storage et verifier si la valeur des données n'est pas nul
 if (localStorage.getItem('cartStockage') == null) {
     localStorage.setItem('cartStockage', '[]')
@@ -42,7 +41,6 @@ if (localStorage.getItem('cartStockage') == null) {
 let cartStockage = JSON.parse(localStorage.getItem('cartStockage'));
 for (let i = 0; i < cartStockage.length; i++) {
     addToCart(cartStockage[i]);
-
 }
 //boucle pour mettre les donnée de l'article dans le local storage
 for (let i = 0; i < add_cart.length; i++) {
@@ -52,7 +50,7 @@ for (let i = 0; i < add_cart.length; i++) {
         console.log(data)
         cartStockage.push(data)
         localStorage.setItem('cartStockage', JSON.stringify(cartStockage));
-        document.location.reload();
+        notifDisplayAdd(data);
     })
 }
 
@@ -97,7 +95,6 @@ function removeItemFromCart(id) {
     }
 }
 
-
 //verifie si le panier est vide pour pouvoir valider la commande 
 let check_if_cart_empty = document.getElementById("valid-cart");
 
@@ -110,11 +107,36 @@ if (is_cart_empty == true){
     check_if_cart_empty.addEventListener('click', alert_cart_empty)
 }
 
-
 //vider le panier une fois la commande valider 
 let btn_clear_after_validation = document.querySelector('#valid-cart')
 btn_clear_after_validation.addEventListener('click', () => {
     localStorage.clear();
     is_cart_empty = true;
 })
+
+//notification ajout article du panier
+function notifDisplayAdd(cardId){
+    notif.insertAdjacentHTML('afterbegin', `
+        <div class="alert" style="background-color: #00B2BD;">
+            <span class="alertaddcart"></span>
+            ${COURSES[cardId].title} à été ajouté au panier !
+        </div>
+    `) 
+    setTimeout(function(){
+        $('body').children().remove('.alert');
+    }, 3000);    
+}
+
+//notification supprimer article du panier
+function notifDisplayRemove(cardId){
+    notif.insertAdjacentHTML('afterbegin', `
+        <div class="alert" style="background-color: #00B2BD;">
+            <span class="alertaddcart"></span>
+            ${COURSES[cardId].title} à bien été supprimer au panier !
+        </div>
+    `) 
+    setTimeout(function(){
+        $('body').children().remove('.alert');
+    }, 3000);    
+}
 
