@@ -34,6 +34,8 @@ for (let i = coursesLength; i > 0; i--){
     `);
 }
 
+let check_stock = document.querySelector(".stock");
+
 //recuperation des données pour le local storage et verifier si la valeur des données n'est pas nul
 if (localStorage.getItem('cartStockage') == null) {
     localStorage.setItem('cartStockage', '[]')
@@ -50,14 +52,17 @@ for (let i = 0; i < add_cart.length; i++) {
         console.log(data)
         cartStockage.push(data)
         localStorage.setItem('cartStockage', JSON.stringify(cartStockage));
+        document.location.reload();
         notifDisplayAdd(data);
     })
 }
 
 //fonction pour mettre les articles dans le panier
-function addToCart(id) {
+
+function addToCart(id, quantité) {
     let course = COURSES[id];
     console.log(`Add ${course.title} to cart`);
+    
     cart.insertAdjacentHTML('afterbegin', `
         <tr>
             <td><img src="img/courses/${course.img}" alt="${course.title} logo"></td>
@@ -68,7 +73,16 @@ function addToCart(id) {
 
         </tr>
     `)
-    is_cart_empty = false;
+    is_cart_empty = false; 
+    
+    for (let i = 1; i < course.stock; i++){
+        //let quantité = cartStockage[i];
+        let test = course.stock - i;
+        check_stock.innerHTML = test;
+        console.log(test);
+
+    }
+    
 }
 
 //vider le panier
@@ -83,14 +97,13 @@ btn_clear.addEventListener('click', () => {
 function removeItemFromCart(id) {
     let table = JSON.parse(localStorage.getItem('cartStockage'));
     for (let i = 0; i < table.length; i++) {
-        let oui =  table
-        console.log(oui)
-        const element = oui[i];
+        const element = table[i];
         
         if (element == id) {
-            oui.splice(i, 1)
-            localStorage.setItem('cartStockage', JSON.stringify(oui))
+            table.splice(i, 1)
+            localStorage.setItem('cartStockage', JSON.stringify(table))
             document.location.reload();
+            notifDisplayRemove(table);
         }
     }
 
