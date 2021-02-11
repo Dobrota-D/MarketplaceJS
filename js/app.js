@@ -1,6 +1,7 @@
 let add_cart = document.getElementsByClassName("add-to-cart");
 let cart = document.querySelector('#cart tbody');
 let notif = document.querySelector('body');
+//let recap = document.querySelector("#recap");
 const container = document.querySelector('.courses__container');
 console.log(add_cart);
 let is_cart_empty = true;
@@ -40,9 +41,9 @@ if (localStorage.getItem('cartStockage') == null) {
 }
 let cartStockage = JSON.parse(localStorage.getItem('cartStockage'));
 for (let i = 0; i < cartStockage.length; i++) {
-    addToCart(cartStockage[i])
-}
+    addToCart(cartStockage[i]);
 
+}
 //boucle pour mettre les donnée de l'article dans le local storage
 for (let i = 0; i < add_cart.length; i++) {
     const element = add_cart[i];
@@ -108,4 +109,12 @@ function alert_cart_empty(event){
 if (is_cart_empty == true){
     check_if_cart_empty.addEventListener('click', alert_cart_empty)
 }
+
+
+//vider le panier une fois la commande valider 
+let btn_clear_after_validation = document.querySelector('#valid-cart')
+btn_clear_after_validation.addEventListener('click', () => {
+    localStorage.clear();
+    is_cart_empty = true;
+})
 
