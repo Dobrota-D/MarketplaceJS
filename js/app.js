@@ -59,7 +59,7 @@ function addToCart(id) {
     let course = COURSES[id];
     console.log(`Add ${course.title} to cart`);
     cart.insertAdjacentHTML('afterbegin', `
-        <tr class="tests">
+        <tr>
             <td><img src="img/courses/${course.img}" alt="${course.title} logo"></td>
             <td>${course.title}</td>
             <td>${course.price}€</td>
@@ -81,18 +81,19 @@ btn_clear.addEventListener('click', () => {
 
 //retirer un article du panier 
 function removeItemFromCart(id) {
-    cartlist = document.querySelectorAll('.tests')
-    for (let i = 0; i < cartlist.length; i++) {
-        const course = cartlist[i];
-        let courseId = course.querySelector('.remove-course').getAttribute('data-id')
+    let table = JSON.parse(localStorage.getItem('cartStockage'));
+    for (let i = 0; i < table.length; i++) {
+        let oui =  table
+        console.log(oui)
+        const element = oui[i];
         
-        
-        if (courseId == id) {
-            cart.removeChild(cartlist[i])
-            
-            localStorage.removeItem(id)
-         }
+        if (element == id) {
+            oui.splice(i, 1)
+            localStorage.setItem('cartStockage', JSON.stringify(oui))
+            document.location.reload();
+        }
     }
+
 }
 
 //verifie si le panier est vide pour pouvoir valider la commande 
